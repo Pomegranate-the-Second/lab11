@@ -3,13 +3,26 @@ package org.example;
 public class TextAnalyzer {
 
     public static TextStats countStatistics(String text) {
-
         String[] lines = text.split("\n");
-
         int lineCount = lines.length;
-        // Добавить подсчеты слов и символов в будущем
+
+        // Подсчет слов: более простой и понятный способ
         int wordCount = 0;
-        int charCount = 0;
+        boolean inWord = false;
+
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (Character.isLetterOrDigit(c)) {
+                if (!inWord) {
+                    wordCount++;
+                    inWord = true;
+                }
+            } else {
+                inWord = false;
+            }
+        }
+
+        int charCount = text.length();
 
         return new TextStats(lineCount, wordCount, charCount);
     }
